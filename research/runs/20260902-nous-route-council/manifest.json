@@ -1,0 +1,33 @@
+{
+  "experiment": "ISSUE-20260901-NOUS-ROUTE-COUNCIL-EXPERIMENT",
+  "run_id": "20260902-nous-route-council",
+  "status": "COMPLETE",
+  "runner": {
+    "harness": "Hermes Desktop",
+    "parent_route": "openai-codex / gpt-5.6-luna-900k",
+    "delegation_mode": "learning/orchestration",
+    "max_concurrent_children": 10,
+    "max_spawn_depth": 1
+  },
+  "task": {
+    "subject": "Nous route diagnostic-tool design",
+    "masks": ["ARCHIVIST", "PRACTITIONER", "SYSTEMS_ENGINEER", "NEWCOMER", "SKEPTIC"],
+    "output_schema": "mask, verdict, confidence, reasoning, facts, assumptions, unique_findings, what_would_change_my_mind, weakest_point",
+    "side_effects_forbidden": ["Hindsight writes", "AutoMem writes", "config changes by children", "external writes", "credential output"]
+  },
+  "passes": [
+    {"pass": 1, "provider": "nous", "model": "meituan/longcat-2.0:free", "sentinel": "SUCCESS", "result": {"completed": 5, "revise": 5, "accept": 0, "reject": 0}},
+    {"pass": 2, "provider": "nous", "model": "upstage/solar-pro4:free", "sentinel": "SUCCESS", "result": {"completed": 5, "revise": 4, "accept": 1, "reject": 0}},
+    {"pass": 3, "provider": "nous", "model": "stepfun/step-3.7-flash:free", "sentinel": "SUCCESS", "result": {"completed": 5, "revise": 4, "accept": 1, "reject": 0, "retry_events": 1, "capacity_events": 1}},
+    {"pass": 4, "provider": "nous", "model": "inclusionai/ling-3.0-flash-fin:free", "sentinel": "SUCCESS", "result": {"completed": 5, "revise": 4, "accept": 1, "reject": 0}},
+    {"pass": 5, "provider": "openrouter", "model": "minimax/minimax-m3:free", "sentinel": "SUCCESS", "result": {"completed": 5, "revise": 4, "accept": 1, "reject": 0}},
+    {"pass": 6, "provider": "openrouter", "model": "nvidia/nemotron-3.5-lightning:free", "sentinel": "SUCCESS", "result": {"completed": 5, "revise": 4, "accept": 1, "reject": 0}},
+    {"pass": 7, "provider": "groq", "model": "openai/gpt-oss-120b", "sentinel": "UNKNOWN_RUNNER", "result": {"completed": 0, "not_run": true, "attempts": 2, "provider_response": false}},
+    {"pass": 8, "provider": "opencode-go", "model": "glm-5.3-flash", "sentinel": "SUCCESS", "result": {"completed": 5, "invalid": true, "reason": "brief delivered with literal truncation marker; responses assessed delivery failure, not the complete design"}},
+    {"pass": "8b", "provider": "opencode-go", "model": "glm-5.3-flash", "sentinel": "SUCCESS", "result": {"completed": 5, "partial": true, "invalid": true, "reason": "all five non-streaming calls crossed the 90s tool threshold; partial responses were not accepted as a normal completed pass"}},
+    {"pass": "8c", "provider": "opencode-go", "model": "glm-5.3-flash", "sentinel": "SUCCESS", "result": {"completed": 4, "partial": true, "invalid": true, "statuses": {"ARCHIVIST": "completed", "PRACTITIONER": "partial_timeout", "SYSTEMS_ENGINEER": "partial_timeout", "NEWCOMER": "partial_timeout", "SKEPTIC": "provider_unresponsive"}, "reason": "non-streaming timeout threshold and one provider stall prevented a clean 5/5 envelope"}},
+    {"pass": "8d", "provider": "opencode-go", "model": "glm-5.3-flash", "sentinel": "SUCCESS", "result": {"completed": 1, "partial": true, "invalid": true, "status": "partial_timeout", "mask": "SKEPTIC", "reason": "substantive partial JSON arrived but non-streaming API crossed the 90s threshold"}},
+    {"pass": 9, "provider": "openai-codex", "model": "gpt-5.6-sol-900k", "sentinel": "SUCCESS", "result": {"completed": 5, "revise": 5, "accept": 0, "reject": 0}}
+  ],
+  "redaction": {"credentials": "[REDACTED]", "raw_runtime_logs": "not committed", "bearer_values": "not collected"}
+}
