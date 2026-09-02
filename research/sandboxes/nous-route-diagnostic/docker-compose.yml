@@ -1,0 +1,79 @@
+services:
+  nous-stub:
+    build:
+      context: .
+    command: ["python", "/app/stub_server.py", "--port", "8080", "--role", "nous"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    user: "65532:65532"
+    mem_limit: 256m
+    cpus: 0.50
+    pids_limit: 64
+    restart: "no"
+    networks:
+      - council-net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=1)"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
+  proxy-stub:
+    build:
+      context: .
+    command: ["python", "/app/stub_server.py", "--port", "8645", "--role", "proxy"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    user: "65532:65532"
+    mem_limit: 256m
+    cpus: 0.50
+    pids_limit: 64
+    restart: "no"
+    networks:
+      - council-net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8645/health', timeout=1)"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
+  test-runner:
+    build:
+      context: .
+    command: ["python", "/app/test_sandbox.py"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    user: "65532:65532"
+    mem_limit: 256m
+    cpus: 0.50
+    pids_limit: 64
+    restart: "no"
+    environment:
+      NOUS_STUB_URL: http://nous-stub:8080
+      PROXY_STUB_URL: http://proxy-stub:8645/v1
+    depends_on:
+      nous-stub:
+        condition: service_healthy
+      proxy-stub:
+        condition: service_healthy
+    networks:
+      - council-net
+
+networks:
+  council-net:
+    internal: true
