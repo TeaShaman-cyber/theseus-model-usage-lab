@@ -1,0 +1,27 @@
+{
+  "issue": 17,
+  "date": "2026-11-07",
+  "session_search_issue": 176,
+  "session_search_main_before_run": "26d734c9a272819f5e5d97a949b248db62539ef8",
+  "runner_shas": [
+    "cd646dcc3f889a24631004faa4b84d641b50bb2a",
+    "2de28f8006683f3e28c19daef7fa16a86b320be4"
+  ],
+  "windows_utc": [
+    ["2026-11-07T13:10:44Z", "2026-11-07T13:11:54Z"],
+    ["2026-11-07T13:13:40Z", "2026-11-07T13:14:40Z"]
+  ],
+  "accounting_window_utc": [
+    "2026-11-07T13:08:13Z",
+    "2026-11-07T13:15:10Z"
+  ],
+  "provider_report_rows": 32,
+  "provider_report_caps": 2013.578308,
+  "account_delta_units": -2029,
+  "account_delta_currency_field": "RUB",
+  "public_tariff_estimate_rub": 0.1714474,
+  "provider_mode": "UNKNOWN",
+  "raw_private_account_data_committed": false,
+  "raw_prompts_or_responses_committed": false,
+  "disposition": "BOTHUB_PROVIDER_USAGE_VERIFIED / MODEL_ATTRIBUTION_VERIFIED / CAPS_LEDGER_OBSERVED / RUB_ESTIMATE_NON_AUTHORITATIVE / ECO_PRO_UNKNOWN / GRAFANA_CURRENT_WINDOW_NO_SIGNAL / BILLING_RECONCILIATION_PARTIAL"
+}
